@@ -1,0 +1,23 @@
+{
+  "name": "guess_who_react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MisterrW/guess_who_react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MisterrW/guess_who_react/issues"
+  },
+  "homepage": "https://github.com/MisterrW/guess_who_react#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
