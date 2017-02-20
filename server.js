@@ -6,11 +6,14 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
+var port = process.env.PORT || 3000;
+
 app.use(express.static('client/build'));
+// app.use(connect.json());
 
-const server = app.listen(3000, function () {
-  const host = server.address().address;
-  const port = server.address().port;
+var server = app.listen(port, function () {
+  var host = server.address().address;
+  var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('Server running. http://%s:%s', host, port);
 });
