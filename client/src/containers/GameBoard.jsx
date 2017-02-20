@@ -21,19 +21,41 @@ class GameBoard extends React.Component {
         hair: "red",
         beard: "no",
         hat: "yes"
+      },
+      {
+        name: "Moana",
+        hair: "blue",
+        beard: "no",
+        hat: "no"
+      },
+      {
+        name: "Zedd",
+        hair: "none",
+        beard: "no",
+        hat: "yes"
       }
     ]
+    let randomy = Math.floor(Math.random() * characters.length);
+    let chosen = characters[randomy]
     this.state = {
+      chosen: chosen,
       characters: characters,
       questions: questions,
       eliminatedCharacters: []
     }
   }
 
-  eliminate(){
-    var question = this.state.questions[this.state.selectedQuestion]
-    let newCharacters = this.state.characters
-    let newExcludedCharacters = []
+  trueOfChosen(newCharacters, newExcludedCharacters, question){
+    for (let i = newCharacters.length-1; i >= 0; i--){
+      var character = newCharacters[i]
+      if(character[question.thisKey] !== question.valid){
+        newExcludedCharacters.push(newCharacters.splice(i, 1)[0])
+      }
+    }
+    this.setState({characters: newCharacters, eliminatedCharacters: newExcludedCharacters})
+  }
+
+  falseOfChosen(newCharacters, newExcludedCharacters, question){
     for (let i = newCharacters.length-1; i >= 0; i--){
       var character = newCharacters[i]
       if(character[question.thisKey] === question.valid){
@@ -43,8 +65,25 @@ class GameBoard extends React.Component {
     this.setState({characters: newCharacters, eliminatedCharacters: newExcludedCharacters})
   }
 
+  eliminate(){
+    let newCharacters = this.state.characters
+    let newExcludedCharacters = []
+    let question = this.state.questions[this.state.selectedQuestion]
+    if(this.state.chosen[question.thisKey] === question.valid){
+      this.trueOfChosen(newCharacters, newExcludedCharacters, question)
+    }else{
+      this.falseOfChosen(newCharacters, newExcludedCharacters, question)
+    }
+  }
+
   go(){
     this.eliminate()
+  }
+
+  componentDidUpdate(){
+    if (this.state.characters.length === 1) {
+      alert("You win!")
+    }
   }
 
   handleQuestionSelect(event){
@@ -66,9 +105,9 @@ class GameBoard extends React.Component {
           return <Tile key={pos} character={character}></Tile>
         })}
         <h2>Eliminated</h2>
-          {this.state.eliminatedCharacters.map(function(character, pos){
-            return <Tile key={pos} character={character}></Tile>
-          })}
+        {this.state.eliminatedCharacters.map(function(character, pos){
+          return <Tile key={pos} character={character}></Tile>
+        })}
       </div>
     )
   }

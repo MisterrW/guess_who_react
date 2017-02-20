@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Tile = (props) => {
-  console.log(props)
   return (
     <div>
       <h1>{props.character.name}</h1>
