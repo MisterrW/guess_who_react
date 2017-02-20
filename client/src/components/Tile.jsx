@@ -2,7 +2,7 @@ import React from 'react'
 
 const Tile = (props) => {
   return (
-    <div>
+    <div className="tile">
       <h1>{props.character.name}</h1>
       <ul>
         <li>Hair: {props.character.hair}</li>

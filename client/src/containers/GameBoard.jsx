@@ -67,7 +67,7 @@ class GameBoard extends React.Component {
 
   eliminate(){
     let newCharacters = this.state.characters
-    let newExcludedCharacters = []
+    let newExcludedCharacters = this.state.eliminatedCharacters
     let question = this.state.questions[this.state.selectedQuestion]
     if(this.state.chosen[question.thisKey] === question.valid){
       this.trueOfChosen(newCharacters, newExcludedCharacters, question)
@@ -100,14 +100,20 @@ class GameBoard extends React.Component {
           })}
         </select>
         <button className="go" onClick={this.go.bind(this)}>GO</button>
+
         <h2>Still in play</h2>
-        {this.state.characters.map(function(character, pos){
-          return <Tile key={pos} character={character}></Tile>
-        })}
+        <div className="main-board">
+          {this.state.characters.map(function(character, pos){
+            return <Tile key={pos} character={character}></Tile>
+          })}
+        </div>
+
         <h2>Eliminated</h2>
-        {this.state.eliminatedCharacters.map(function(character, pos){
-          return <Tile key={pos} character={character}></Tile>
-        })}
+        <div className="main-board">
+          {this.state.eliminatedCharacters.map(function(character, pos){
+            return <Tile key={pos} character={character}></Tile>
+          })}
+        </div>
       </div>
     )
   }
